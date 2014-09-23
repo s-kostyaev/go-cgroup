@@ -16,7 +16,6 @@ type Container struct {
 
 func GetContainers() (containers []Container) {
 	cmd := exec.Command("heaver", "-L")
-	cmd.Stdin = strings.NewReader("")
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	err := cmd.Run()
@@ -36,5 +35,5 @@ func GetContainers() (containers []Container) {
 }
 
 func (container Container) String() string {
-	return fmt.Sprintf("{Name: %s state: %s, ip: %s}", container.Name, container.State, container.IP)
+	return fmt.Sprintf("%+v", container)
 }
