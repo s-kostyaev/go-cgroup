@@ -16,15 +16,15 @@ type Container struct {
 func GetContainers() ([]Container, error) {
 	result := []Container{}
 	cmd := exec.Command("heaver", "-L")
-	var out bytes.Buffer
-	cmd.Stdout = &out
+	cmd.Stdout = &bytes.Buffer{}
 	err := cmd.Run()
 	if err != nil {
 		return result, err
 	}
-	rawcontainers := strings.Split(strings.Trim(out.String(), "\n"), "\n")
+	rawcontainers := strings.Split(strings.Trim(
+		cmd.Stdout.(*bytes.Buffer).String(), "\n"), "\n")
 	for _, rawcontainer := range rawcontainers {
-		var con Container
+		con := Container{}
 		cont_str := strings.Fields(rawcontainer)
 		con.Name = strings.Trim(cont_str[0], ":")
 		con.State = strings.Trim(cont_str[1], ",")
