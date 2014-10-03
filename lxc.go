@@ -36,10 +36,10 @@ func GetContainers() ([]Container, error) {
 		cmd.Stdout.(*bytes.Buffer).String(), "\n"), "\n")
 	for _, rawcontainer := range rawcontainers {
 		con := Container{}
-		cont_str := strings.Fields(rawcontainer)
-		con.Name = strings.Trim(cont_str[0], ":")
-		con.State = strings.Trim(cont_str[1], ",")
-		con.IP = strings.Split(cont_str[3], "/")[0]
+		contStr := strings.Fields(rawcontainer)
+		con.Name = strings.Trim(contStr[0], ":")
+		con.State = strings.Trim(contStr[1], ",")
+		con.IP = strings.Split(contStr[3], "/")[0]
 		result = append(result, con)
 	}
 	return result, nil
